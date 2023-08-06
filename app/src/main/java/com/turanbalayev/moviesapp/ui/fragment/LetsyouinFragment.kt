@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.turanbalayev.moviesapp.databinding.FragmentLetsyouinBinding
 
 
@@ -24,6 +25,16 @@ class LetsyouinFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.buttonSignInWithPass.setOnClickListener {
+            val action = LetsyouinFragmentDirections.actionLetsyouinFragmentToLoginFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.textViewSignUp.setOnClickListener {
+            val action = LetsyouinFragmentDirections.actionLetsyouinFragmentToCreateAccountFragment()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {

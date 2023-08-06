@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.turanbalayev.moviesapp.databinding.FragmentLoginBinding
 
 
@@ -23,6 +24,10 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.textViewSignUpBottom.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToCreateAccountFragment()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {
