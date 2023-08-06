@@ -64,6 +64,7 @@
             app:startIconTint="@drawable/custom_input">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textViewOutlinedEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -98,6 +99,7 @@
             app:startIconTint="@drawable/custom_input">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textViewOutlinedPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
