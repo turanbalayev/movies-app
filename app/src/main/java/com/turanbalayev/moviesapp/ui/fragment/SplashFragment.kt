@@ -33,9 +33,8 @@ class SplashFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             delay(4000)
-            withContext(Dispatchers.Main){
-                val action = SplashFragmentDirections.actionSplashFragmentToWelcomeFragment()
-                findNavController().navigate(action)
+            withContext(Dispatchers.Main) {
+                gotoWelcome()
             }
         }
     }
@@ -43,6 +42,11 @@ class SplashFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun gotoWelcome() {
+        val action = SplashFragmentDirections.actionSplashFragmentToWelcomeFragment()
+        findNavController().navigate(action)
     }
 
 

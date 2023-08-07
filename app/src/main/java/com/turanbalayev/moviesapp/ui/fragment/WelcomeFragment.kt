@@ -18,22 +18,31 @@ class WelcomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentWelcomeBinding.inflate(inflater,container,false)
+        _binding = FragmentWelcomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonGetStarted.setOnClickListener {
-            val action = WelcomeFragmentDirections.actionWelcomeFragmentToLetsyouinFragment()
-            findNavController().navigate(action)
-        }
+        listenToButtons()
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun listenToButtons() {
+        binding.buttonGetStarted.setOnClickListener {
+            gotoLetsyouin()
+        }
+    }
+
+    private fun gotoLetsyouin() {
+        val action = WelcomeFragmentDirections.actionWelcomeFragmentToLetsyouinFragment()
+        findNavController().navigate(action)
     }
 
 }

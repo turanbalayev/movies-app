@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/createAccountFragment"
-        android:name="com.turanbalayev.moviesapp.ui.fragment.CreateAccountFragment"
+        android:name="com.turanbalayev.moviesapp.ui.fragment.createaccount.CreateAccountFragment"
         android:label="fragment_create_account"
         tools:layout="@layout/fragment_create_account" >
         <action
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.turanbalayev.moviesapp.ui.fragment.LoginFragment"
+        android:name="com.turanbalayev.moviesapp.ui.fragment.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action

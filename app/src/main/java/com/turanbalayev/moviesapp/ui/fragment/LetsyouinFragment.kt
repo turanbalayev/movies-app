@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.turanbalayev.moviesapp.databinding.FragmentLetsyouinBinding
-
+import dagger.hilt.android.AndroidEntryPoint
 
 
 class LetsyouinFragment : Fragment() {
@@ -26,19 +26,33 @@ class LetsyouinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSignInWithPass.setOnClickListener {
-            val action = LetsyouinFragmentDirections.actionLetsyouinFragmentToLoginFragment()
-            findNavController().navigate(action)
-        }
+        listenToButtons()
 
-        binding.textViewSignUp.setOnClickListener {
-            val action = LetsyouinFragmentDirections.actionLetsyouinFragmentToCreateAccountFragment()
-            findNavController().navigate(action)
-        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun listenToButtons(){
+
+        binding.buttonSignInWithPass.setOnClickListener {
+            gotoLogin()
+        }
+
+        binding.textViewSignUp.setOnClickListener {
+            gotoCreateAccount()
+        }
+    }
+
+    private fun gotoCreateAccount(){
+        val action = LetsyouinFragmentDirections.actionLetsyouinFragmentToCreateAccountFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun gotoLogin(){
+        val action = LetsyouinFragmentDirections.actionLetsyouinFragmentToLoginFragment()
+        findNavController().navigate(action)
     }
 }
