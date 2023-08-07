@@ -4,8 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pexels_nickson_bg"
+    android:background="@color/black"
     tools:context=".ui.fragment.WelcomeFragment">
+
+
+    <ImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/welcome_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewGradient"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/welcome_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -24,14 +46,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:backgroundTint="@color/design_default_color_error"
-        android:paddingVertical="15dp"
         android:id="@+id/buttonGetStarted"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/design_default_color_error"
+        android:paddingVertical="15dp"
         android:text="Get Started"
         android:textSize="16sp"
         app:cornerRadius="20dp"
@@ -40,15 +62,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="28sp"
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Welcome to Movo"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textview_second_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
