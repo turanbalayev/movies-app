@@ -1,7 +1,7 @@
 package com.turanbalayev.moviesapp.util
 
 
-data class CustomError(
+data class CustomValidationResponse(
     val message: String,
     val hasError: Boolean
 )

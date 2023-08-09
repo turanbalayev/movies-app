@@ -22,7 +22,7 @@ class LoginViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewM
                     _authResultStr.value = "You signed in successfully!"
 
                 } else {
-                    _authResultStr.value = "Operation failed! Try again."
+                    _authResultStr.value = it.exception?.localizedMessage.toString() ?: "Operation failed! Try again."
                 }
             }
         }

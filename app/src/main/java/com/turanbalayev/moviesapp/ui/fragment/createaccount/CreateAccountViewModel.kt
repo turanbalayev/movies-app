@@ -31,7 +31,7 @@ class CreateAccountViewModel @Inject constructor (
                     _authResultStr.value = "You signed up successfully!"
                     _hasRegistered.value = true
                 } else {
-                    _authResultStr.value = "Operation failed! Try again."
+                    _authResultStr.value = it.exception?.localizedMessage.toString() ?:"Operation failed! Try again."
                 }
             }
         }

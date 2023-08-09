@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.turanbalayev.moviesapp.databinding.FragmentSplashBinding
 import kotlinx.coroutines.CoroutineScope
@@ -31,12 +32,11 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             delay(4000)
-            withContext(Dispatchers.Main) {
-                gotoWelcome()
-            }
+            gotoWelcome()
         }
+
     }
 
     override fun onDestroyView() {

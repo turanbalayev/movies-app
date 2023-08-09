@@ -2,24 +2,24 @@ package com.turanbalayev.moviesapp.util
 
 class Validation {
     companion object {
-        fun validateEmail(email: String): CustomError {
+        fun validateEmail(email: String): CustomValidationResponse {
             return if (email.isEmpty()) {
-                CustomError(message = "Email can not be empty!", hasError = true)
+                CustomValidationResponse(message = "Email can not be empty!", hasError = true)
             } else if (!email.contains("@")) {
-                CustomError(message = "Email must contain '@' sign.", hasError = true)
+                CustomValidationResponse(message = "Email must contain '@' sign.", hasError = true)
             } else {
-                CustomError(message = "", hasError = false)
+                CustomValidationResponse(message = "", hasError = false)
             }
         }
 
 
-        fun validatePassword(password: String): CustomError {
+        fun validatePassword(password: String): CustomValidationResponse {
             return if (password.isEmpty()) {
-                CustomError(message = "Password can not be empty!", hasError = true)
+                CustomValidationResponse(message = "Password can not be empty!", hasError = true)
             } else if (password.length < 6) {
-                CustomError(message = "Password must be at least 6 characters!", hasError = true)
+                CustomValidationResponse(message = "Password must be at least 6 characters!", hasError = true)
             } else {
-                CustomError(message = "", hasError = false)
+                CustomValidationResponse(message = "", hasError = false)
             }
         }
     }
