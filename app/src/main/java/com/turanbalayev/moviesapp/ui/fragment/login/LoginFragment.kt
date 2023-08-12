@@ -76,6 +76,7 @@ class LoginFragment() : Fragment() {
 
         if (binding.outlinedTextFieldEmail.error == null && binding.outlinedTextFieldPassword.error == null) {
             viewModel.loginUser(email,password)
+            gotoHome()
         }
     }
 
@@ -93,6 +94,11 @@ class LoginFragment() : Fragment() {
         viewModel.authResultStr.observe(viewLifecycleOwner){
             Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun gotoHome(){
+        val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+        findNavController().navigate(action)
     }
 
 

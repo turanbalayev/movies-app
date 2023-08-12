@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/topMoviesFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -62,17 +62,47 @@
             app:destination="@id/createAccountFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.turanbalayev.moviesapp.ui.fragment.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_topMoviesFragment"
+            app:destination="@id/topMoviesFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/topMoviesFragment"
         android:name="com.turanbalayev.moviesapp.ui.fragment.topmovies.TopMoviesFragment"
         android:label="fragment_top_movies"
-        tools:layout="@layout/fragment_top_movies" />
+        tools:layout="@layout/fragment_top_movies" >
+        <action
+            android:id="@+id/action_topMoviesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/topMoviesFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_topMoviesFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/topMoviesFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.turanbalayev.moviesapp.ui.fragment.explore.ExploreFragment"

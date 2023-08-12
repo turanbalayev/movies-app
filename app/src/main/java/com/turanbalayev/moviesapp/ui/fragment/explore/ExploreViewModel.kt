@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.turanbalayev.moviesapp.api.MovieApi
 import com.turanbalayev.moviesapp.model.MovieResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
@@ -31,6 +32,7 @@ class ExploreViewModel @Inject constructor(private val api: MovieApi) : ViewMode
     fun getMovies(){
         viewModelScope.launch {
             _loading.value = true
+            delay(1500)
             try {
                 _loading.value = true
                 val response = api.getTopRatedMovies()

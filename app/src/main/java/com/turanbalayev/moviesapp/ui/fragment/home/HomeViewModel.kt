@@ -4,16 +4,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.turanbalayev.moviesapp.api.MovieApi
 import com.turanbalayev.moviesapp.model.MovieResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val api: MovieApi) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val api: MovieApi,
+    private val auth: FirebaseAuth
+    ) : ViewModel() {
     private val _data = MutableLiveData<MovieResponse>()
     val data: LiveData<MovieResponse> get() = _data
 
@@ -27,6 +32,7 @@ class HomeViewModel @Inject constructor(private val api: MovieApi) : ViewModel()
     fun getMovies(){
         viewModelScope.launch {
             _loading.value = true
+            delay(1500)
             try {
                 _loading.value = true
                 val response = api.getTopRatedMovies()
@@ -51,5 +57,9 @@ class HomeViewModel @Inject constructor(private val api: MovieApi) : ViewModel()
                 _loading.value = false
             }
         }
+    }
+
+    fun isAuth():Boolean{
+        return auth.currentUser != null
     }
 }

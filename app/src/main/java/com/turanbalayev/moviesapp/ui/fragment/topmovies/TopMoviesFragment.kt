@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.turanbalayev.moviesapp.R
@@ -37,6 +38,7 @@ class TopMoviesFragment : Fragment() {
         viewModel.getMovies()
         setRecyclerView()
         observerAll()
+        listenToButtons()
     }
 
     override fun onDestroyView() {
@@ -54,5 +56,35 @@ class TopMoviesFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner){
             adapter.differ.submitList(it.results)
         }
+
+        viewModel.loading.observe(viewLifecycleOwner){
+            if(it == true){
+                binding.topMoviesProgressBar.visibility = View.VISIBLE
+            } else {
+                binding.topMoviesProgressBar.visibility = View.GONE
+            }
+        }
     }
+
+    private fun listenToButtons(){
+        binding.imgBackArrow.setOnClickListener {
+            gotoHome()
+        }
+
+        binding.imgSearchIcon.setOnClickListener {
+            gotoExplore()
+        }
+    }
+
+    private fun gotoHome(){
+        val action = TopMoviesFragmentDirections.actionTopMoviesFragmentToHomeFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun gotoExplore(){
+        val action = TopMoviesFragmentDirections.actionTopMoviesFragmentToExploreFragment()
+        findNavController().navigate(action)
+    }
+
+
 }
