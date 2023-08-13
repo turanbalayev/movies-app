@@ -6,7 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.turanbalayev.moviesapp.api.MovieApi
+import com.turanbalayev.moviesapp.data.HomeRepository
 import com.turanbalayev.moviesapp.model.MovieResponse
+import com.turanbalayev.moviesapp.model.MovieResult
+import com.turanbalayev.moviesapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -15,10 +18,8 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val api: MovieApi,
-    private val auth: FirebaseAuth
-    ) : ViewModel() {
+class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : ViewModel() {
+
     private val _data = MutableLiveData<MovieResponse>()
     val data: LiveData<MovieResponse> get() = _data
 
@@ -29,37 +30,24 @@ class HomeViewModel @Inject constructor(
     val error: LiveData<String> get() = _error
 
 
+
     fun getMovies(){
         viewModelScope.launch {
             _loading.value = true
-            delay(1500)
-            try {
-                _loading.value = true
-                val response = api.getTopRatedMovies()
-                if(response.isSuccessful){
-                    if (response.body() == null){
-                        _error.value = "Response body is null"
-                        _loading.value = false
-                    }
-
-                    response.body().let {
-                        _data.value = it
-                        _loading.value = false
-                    }
-
-                } else{
-                    _error.value = response.errorBody().toString()
+            when(val result = homeRepository.getMoviesRP()){
+                is NetworkResult.Success -> {
+                    _data.value = result.data
                     _loading.value = false
                 }
-
-            } catch (e: Exception){
-                _error.value = e.localizedMessage?.toString() ?: "Unexpected Error"
-                _loading.value = false
+                is NetworkResult.Error -> {
+                    _error.value = result.message
+                    _loading.value = false
+                }
             }
         }
     }
 
     fun isAuth():Boolean{
-        return auth.currentUser != null
+        return homeRepository.isAuthRP()
     }
 }

@@ -56,7 +56,8 @@ class ExploreFragment : Fragment() {
 
         viewModel.loading.observe(viewLifecycleOwner){
             if(it == true){
-                binding.exploreProgressBar.visibility = View.VISIBLE
+                if(adapter.differ.currentList.isEmpty()){
+                binding.exploreProgressBar.visibility = View.VISIBLE}
             }else {
                 binding.exploreProgressBar.visibility = View.GONE
             }

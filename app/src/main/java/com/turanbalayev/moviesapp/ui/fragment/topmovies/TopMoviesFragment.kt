@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TopMoviesFragment : Fragment() {
-    private var _binding:FragmentTopMoviesBinding? = null
+    private var _binding: FragmentTopMoviesBinding? = null
     private val binding get() = _binding!!
     private val adapter = HomeTenMoviesAdapter()
     private val viewModel: TopMoviesViewModel by viewModels()
@@ -28,7 +28,7 @@ class TopMoviesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTopMoviesBinding.inflate(inflater,container,false)
+        _binding = FragmentTopMoviesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,27 +46,29 @@ class TopMoviesFragment : Fragment() {
         _binding = null
     }
 
-    private fun setRecyclerView(){
+    private fun setRecyclerView() {
         binding.rvTopMovies.adapter = adapter
-        binding.rvTopMovies.layoutManager = GridLayoutManager(requireContext(),2)
+        binding.rvTopMovies.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
 
-    private fun observerAll(){
-        viewModel.data.observe(viewLifecycleOwner){
+    private fun observerAll() {
+        viewModel.data.observe(viewLifecycleOwner) {
             adapter.differ.submitList(it.results)
         }
 
-        viewModel.loading.observe(viewLifecycleOwner){
-            if(it == true){
-                binding.topMoviesProgressBar.visibility = View.VISIBLE
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it == true) {
+                if (adapter.differ.currentList.isEmpty()) {
+                    binding.topMoviesProgressBar.visibility = View.VISIBLE
+                }
             } else {
                 binding.topMoviesProgressBar.visibility = View.GONE
             }
         }
     }
 
-    private fun listenToButtons(){
+    private fun listenToButtons() {
         binding.imgBackArrow.setOnClickListener {
             gotoHome()
         }
@@ -76,12 +78,12 @@ class TopMoviesFragment : Fragment() {
         }
     }
 
-    private fun gotoHome(){
+    private fun gotoHome() {
         val action = TopMoviesFragmentDirections.actionTopMoviesFragmentToHomeFragment()
         findNavController().navigate(action)
     }
 
-    private fun gotoExplore(){
+    private fun gotoExplore() {
         val action = TopMoviesFragmentDirections.actionTopMoviesFragmentToExploreFragment()
         findNavController().navigate(action)
     }

@@ -74,7 +74,9 @@ class HomeFragment : Fragment() {
 
         viewModel.loading.observe(viewLifecycleOwner){
             if(it == true){
-                binding.homeProgressBar.visibility = View.VISIBLE
+                if(adapter.differ.currentList.isEmpty()) {
+                    binding.homeProgressBar.visibility = View.VISIBLE
+                }
             } else {
                 binding.homeProgressBar.visibility = View.GONE
             }
