@@ -1,21 +1,21 @@
 package com.turanbalayev.moviesapp.ui.fragment.explore
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.turanbalayev.moviesapp.api.MovieApi
+import com.turanbalayev.moviesapp.data.repository.MovieRepository
 import com.turanbalayev.moviesapp.model.MovieResponse
+import com.turanbalayev.moviesapp.model.MovieResult
+import com.turanbalayev.moviesapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 
 @HiltViewModel
-class ExploreViewModel @Inject constructor(private val api: MovieApi) : ViewModel() {
+class ExploreViewModel @Inject constructor(private val movieRepository: MovieRepository) : ViewModel() {
 
     private val _data = MutableLiveData<MovieResponse>()
     val data: LiveData<MovieResponse> get() = _data
@@ -27,36 +27,55 @@ class ExploreViewModel @Inject constructor(private val api: MovieApi) : ViewMode
     val error: LiveData<String> get() = _error
 
 
+    private val _searched_movies = MutableLiveData<List<MovieResult>?>()
+    val searched_movies: LiveData<List<MovieResult>?> get() = _searched_movies
+
+
+    private val _has404 = MutableLiveData<Boolean>(false)
+    val has404: LiveData<Boolean> get() = _has404
+
+
+
+
+
 
 
     fun getMovies(){
         viewModelScope.launch {
             _loading.value = true
-            delay(1500)
-            try {
-                _loading.value = true
-                val response = api.getTopRatedMovies()
-                if(response.isSuccessful){
-                    if (response.body() == null){
-                        _error.value = "Response body is null"
-                        _loading.value = false
-                    }
-
-                    response.body().let {
-                        _data.value = it
-                        _loading.value = false
-                    }
-
-                } else{
-                    _error.value = response.errorBody().toString()
+            when(val result = movieRepository.getMoviesRP()){
+                is NetworkResult.Success -> {
+                    _data.value = result.data
                     _loading.value = false
                 }
-
-            } catch (e: Exception){
-                _error.value = e.localizedMessage?.toString() ?: "Unexpected Error"
-                _loading.value = false
+                is NetworkResult.Error -> {
+                    _error.value = result.message
+                    _loading.value = false
+                }
             }
         }
+    }
+
+
+    fun searchMoviesByQuery(query: String) {
+        val filteredList = mutableListOf<MovieResult>()
+        _data.value?.results?.forEach {
+            if(it.title.lowercase().contains(query.lowercase())){
+                filteredList.add(it)
+            }
+        }
+
+        if(filteredList.size ==0){
+            _has404.value = true
+        } else {
+            _has404.value = false
+            _searched_movies.value = filteredList
+        }
+    }
+
+
+    fun clearSearchedMovies(){
+        _searched_movies.value = null
     }
 
 

@@ -91,8 +91,9 @@ class LoginFragment() : Fragment() {
     }
 
     private fun observeAll(){
-        viewModel.authResultStr.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
+
+        viewModel.authResult.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
         }
     }
 

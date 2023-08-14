@@ -4,17 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.turanbalayev.moviesapp.api.MovieApi
+import com.turanbalayev.moviesapp.data.repository.MovieRepository
 import com.turanbalayev.moviesapp.model.MovieResponse
+import com.turanbalayev.moviesapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 
 @HiltViewModel
-class TopMoviesViewModel @Inject constructor(private val api: MovieApi) : ViewModel() {
+class TopMoviesViewModel @Inject constructor(
+    private val movieRepository: MovieRepository
+) : ViewModel() {
 
     private val _data = MutableLiveData<MovieResponse>()
     val data: LiveData<MovieResponse> get() = _data
@@ -26,32 +27,20 @@ class TopMoviesViewModel @Inject constructor(private val api: MovieApi) : ViewMo
     val error: LiveData<String> get() = _error
 
 
+
+
     fun getMovies(){
         viewModelScope.launch {
             _loading.value = true
-            delay(1500)
-            try {
-                _loading.value = true
-                val response = api.getTopRatedMovies()
-                if(response.isSuccessful){
-                    if (response.body() == null){
-                        _error.value = "Response body is null"
-                        _loading.value = false
-                    }
-
-                    response.body().let {
-                        _data.value = it
-                        _loading.value = false
-                    }
-
-                } else{
-                    _error.value = response.errorBody().toString()
+            when(val result = movieRepository.getMoviesRP()){
+                is NetworkResult.Success -> {
+                    _data.value = result.data
                     _loading.value = false
                 }
-
-            } catch (e: Exception){
-                _error.value = e.localizedMessage?.toString() ?: "Unexpected Error"
-                _loading.value = false
+                is NetworkResult.Error -> {
+                    _error.value = result.message
+                    _loading.value = false
+                }
             }
         }
     }

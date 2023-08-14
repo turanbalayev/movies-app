@@ -80,7 +80,7 @@ class CreateAccountFragment : Fragment() {
     }
 
     private fun observeAll(){
-        viewModel.authResultStr.observe(viewLifecycleOwner){
+        /*viewModel.authResultStr.observe(viewLifecycleOwner){
             Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
         }
 
@@ -88,6 +88,13 @@ class CreateAccountFragment : Fragment() {
             if(it == true) {
                 goToLoginFragment()
             }
+        }*/
+
+        viewModel.authResult.observe(viewLifecycleOwner){
+            if(it.hasRegistered){
+                goToLoginFragment()
+            }
+            Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
         }
     }
 

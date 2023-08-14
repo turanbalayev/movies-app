@@ -1,4 +1,4 @@
-package com.turanbalayev.moviesapp.data
+package com.turanbalayev.moviesapp.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.turanbalayev.moviesapp.api.MovieApi
@@ -9,7 +9,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class HomeRepository @Inject constructor(
+class MovieRepository @Inject constructor(
     private val api: MovieApi,
     private val auth: FirebaseAuth
 ) {
