@@ -18,13 +18,16 @@ class ExploreSearchAdapter:RecyclerView.Adapter<ExploreSearchAdapter.ExploreSear
 
     inner class ExploreSearchViewHolder(val binding:SearchMovieItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(movie: MovieResult){
-            binding.textViewMovieTitle.text = movie.title.toString()
-            binding.imgMovie.setImageResource(R.drawable.avatar)
-            Glide.with(binding.root)
+            binding.movieItem = movie
+
+
+          /*  Glide.with(binding.root)
                 .load(BASE_URL_IMAGE + movie.posterPath)
                 .centerCrop()
                 .placeholder(R.drawable.avatar)
-                .into(binding.imgMovie);
+                .into(binding.imgMovie);*/
+
+
         }
     }
 

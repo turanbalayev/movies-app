@@ -36,6 +36,9 @@ class ExploreViewModel @Inject constructor(private val movieRepository: MovieRep
 
 
 
+    init {
+        getMovies()
+    }
 
 
 

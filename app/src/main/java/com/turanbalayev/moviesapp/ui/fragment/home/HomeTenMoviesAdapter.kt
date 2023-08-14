@@ -16,13 +16,15 @@ class HomeTenMoviesAdapter:RecyclerView.Adapter<HomeTenMoviesAdapter.TenMoviesVi
 
     inner class TenMoviesViewHolder(val binding:MovieItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(movie: MovieResult){
-            binding.textViewMovieScore.text = movie.voteAverage.toString()
-            binding.imgCover.setImageResource(R.drawable.avatar)
+            binding.movieItem = movie
+
+/*            binding.textViewMovieScore.text = movie.voteAverage.toString()
             Glide.with(binding.root)
                 .load(BASE_URL_IMAGE + movie.posterPath)
                 .centerCrop()
                 .placeholder(R.drawable.avatar)
-                .into(binding.imgCover);
+                .into(binding.imgCover);*/
+
         }
     }
 
