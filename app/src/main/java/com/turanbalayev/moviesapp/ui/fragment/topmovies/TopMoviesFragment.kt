@@ -12,45 +12,34 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.turanbalayev.moviesapp.R
 import com.turanbalayev.moviesapp.databinding.FragmentTopMoviesBinding
 import com.turanbalayev.moviesapp.model.Movie
+import com.turanbalayev.moviesapp.ui.base.BaseFragment
 import com.turanbalayev.moviesapp.ui.fragment.home.HomeTenMoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class TopMoviesFragment : Fragment() {
-    private var _binding: FragmentTopMoviesBinding? = null
-    private val binding get() = _binding!!
+class TopMoviesFragment : BaseFragment<FragmentTopMoviesBinding>(FragmentTopMoviesBinding::inflate) {
+
     private val adapter = HomeTenMoviesAdapter()
     private val viewModel: TopMoviesViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentTopMoviesBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getMovies()
+
+    override fun onViewCreateFinished() {
         setRecyclerView()
         observerAll()
         listenToButtons()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun setup() {
+
     }
 
     private fun setRecyclerView() {
         binding.rvTopMovies.adapter = adapter
         binding.rvTopMovies.layoutManager = GridLayoutManager(requireContext(), 2)
     }
-
 
     private fun observerAll() {
         viewModel.data.observe(viewLifecycleOwner) {

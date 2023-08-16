@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home_menu"
+        android:title="Home" />
+
+    <item
+
+        android:id="@+id/exploreFragment"
+        android:icon="@drawable/ic_explore_menu"
+        android:title="Explore" />
+
+    <item
+
+        android:id="@+id/myListFragment"
+        android:icon="@drawable/ic_format_list_numbered_menu"
+        android:title="MyList" />
+
+    <item
+
+        android:id="@+id/downloadFragment"
+        android:icon="@drawable/ic_download_for_offline_menu"
+        android:title="Download" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_account_circle_menu"
+        android:title="Profile" />
+
+</menu>

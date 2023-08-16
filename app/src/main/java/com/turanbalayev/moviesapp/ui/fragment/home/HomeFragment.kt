@@ -11,32 +11,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.turanbalayev.moviesapp.databinding.FragmentHomeBinding
 import com.turanbalayev.moviesapp.model.Movie
 import com.turanbalayev.moviesapp.model.MovieResult
+import com.turanbalayev.moviesapp.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+
     private val adapter = HomeTenMoviesAdapter()
     private val viewModel: HomeViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+
+    override fun onViewCreateFinished() {
         val result = viewModel.isAuth()
 
         if (!result) {
-            goToLogin()
+            goToSplash()
         }
 
 
@@ -44,12 +36,10 @@ class HomeFragment : Fragment() {
         setRecyclerView()
         observeAll()
         listenToButtons()
-
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun setup() {
+
     }
 
     private fun setRecyclerView() {
@@ -65,7 +55,6 @@ class HomeFragment : Fragment() {
         binding.rvNewReleases.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
-
 
     private fun observeAll() {
         viewModel.data.observe(viewLifecycleOwner) {
@@ -109,9 +98,16 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun goToSplash(){
+        val action = HomeFragmentDirections.actionHomeFragmentToSplashFragment()
+        findNavController().navigate(action)
+    }
+
     private fun gotoExplore() {
         val action = HomeFragmentDirections.actionHomeFragmentToExploreFragment()
         findNavController().navigate(action)
     }
+
+
 
 }

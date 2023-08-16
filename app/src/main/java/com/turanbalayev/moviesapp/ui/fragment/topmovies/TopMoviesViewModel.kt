@@ -27,6 +27,9 @@ class TopMoviesViewModel @Inject constructor(
     val error: LiveData<String> get() = _error
 
 
+    init {
+        getMovies()
+    }
 
 
     fun getMovies(){

@@ -9,42 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.turanbalayev.moviesapp.databinding.FragmentExploreBinding
+import com.turanbalayev.moviesapp.ui.base.BaseFragment
 import com.turanbalayev.moviesapp.ui.fragment.home.HomeTenMoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment() {
-    private var _binding: FragmentExploreBinding? = null
-    private val binding get() = _binding!!
+class ExploreFragment : BaseFragment<FragmentExploreBinding>(FragmentExploreBinding::inflate) {
+
     private val viewModel: ExploreViewModel by viewModels()
     private val homeTenMoviesAdapter = HomeTenMoviesAdapter()
     private val exploreSearchAdapter = ExploreSearchAdapter()
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentExploreBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
+    override fun onViewCreateFinished() {
         setUpRecyclerView()
         observeAll()
         listenToButtons()
-
-
     }
 
+    override fun setup() {
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setUpRecyclerView() {

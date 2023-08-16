@@ -7,32 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.turanbalayev.moviesapp.databinding.FragmentLetsyouinBinding
+import com.turanbalayev.moviesapp.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
-class LetsyouinFragment : Fragment() {
-    private var _binding: FragmentLetsyouinBinding? = null
-    private val binding get() = _binding!!
+class LetsyouinFragment : BaseFragment<FragmentLetsyouinBinding>(FragmentLetsyouinBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentLetsyouinBinding.inflate(inflater,container,false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+
+    override fun onViewCreateFinished() {
         listenToButtons()
-
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun setup() {
+
     }
 
     private fun listenToButtons(){

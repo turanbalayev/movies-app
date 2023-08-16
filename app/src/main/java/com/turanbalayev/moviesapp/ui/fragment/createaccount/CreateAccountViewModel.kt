@@ -36,19 +36,6 @@ class CreateAccountViewModel @Inject constructor(
     val error: LiveData<String> get() = _error
 
 
-    /*    fun registerUser(email:String,password: String){
-            viewModelScope.launch {
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-                    if(it.isSuccessful){
-                        _authResultStr.value = "You signed up successfully!"
-                        _hasRegistered.value = true
-                    } else {
-                        _authResultStr.value = it.exception?.localizedMessage.toString() ?:"Operation failed! Try again."
-                    }
-                }
-            }
-        }*/
-
     fun registerUser(email:String,password:String){
         viewModelScope.launch {
 
@@ -65,6 +52,23 @@ class CreateAccountViewModel @Inject constructor(
             }
         }
     }
+
+
+
+
+
+    /*    fun registerUser(email:String,password: String){
+        viewModelScope.launch {
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                if(it.isSuccessful){
+                    _authResultStr.value = "You signed up successfully!"
+                    _hasRegistered.value = true
+                } else {
+                    _authResultStr.value = it.exception?.localizedMessage.toString() ?:"Operation failed! Try again."
+                }
+            }
+        }
+    }*/
 
 
 }

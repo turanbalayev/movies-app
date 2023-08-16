@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.turanbalayev.moviesapp.databinding.FragmentLoginBinding
+import com.turanbalayev.moviesapp.ui.base.BaseFragment
 import com.turanbalayev.moviesapp.ui.fragment.login.LoginFragmentDirections
 import com.turanbalayev.moviesapp.util.Validation.Companion.validateEmail
 import com.turanbalayev.moviesapp.util.Validation.Companion.validatePassword
@@ -20,34 +21,23 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class LoginFragment() : Fragment() {
+class LoginFragment() : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
+
     private val viewModel:LoginViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onViewCreateFinished() {
         observeAll()
         listenToButtons()
+    }
+
+    override fun setup() {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
+
+
 
     private fun gotoCreateAccount() {
         val action = LoginFragmentDirections.actionLoginFragmentToCreateAccountFragment()
@@ -101,6 +91,8 @@ class LoginFragment() : Fragment() {
         val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
         findNavController().navigate(action)
     }
+
+
 
 
 }

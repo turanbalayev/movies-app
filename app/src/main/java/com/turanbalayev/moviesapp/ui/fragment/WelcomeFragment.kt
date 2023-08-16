@@ -7,31 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.turanbalayev.moviesapp.databinding.FragmentWelcomeBinding
+import com.turanbalayev.moviesapp.ui.base.BaseFragment
 
 
-class WelcomeFragment : Fragment() {
-    private var _binding: FragmentWelcomeBinding? = null
-    private val binding get() = _binding!!
+class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(FragmentWelcomeBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentWelcomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onViewCreateFinished() {
         listenToButtons()
-
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun setup() {
+
     }
 
     private fun listenToButtons() {
