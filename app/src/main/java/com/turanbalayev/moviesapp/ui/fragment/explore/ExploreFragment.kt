@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.turanbalayev.moviesapp.databinding.FragmentExploreBinding
 import com.turanbalayev.moviesapp.ui.base.BaseFragment
+import com.turanbalayev.moviesapp.ui.fragment.filter.FilterFragment
 import com.turanbalayev.moviesapp.ui.fragment.home.HomeTenMoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -67,6 +68,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(FragmentExploreBind
             }
         }
 
+
+
     }
 
     private fun listenToButtons() {
@@ -100,6 +103,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(FragmentExploreBind
             }
 
         })
+
+
+        binding.cardViewFilter.setOnClickListener {
+            FilterFragment().show(parentFragmentManager,"FilterBottomSheet")
+        }
 
 
     }
